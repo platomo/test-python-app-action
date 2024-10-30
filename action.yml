@@ -17,7 +17,7 @@ runs:
   using: "composite"
   steps:
       - name: Run Python tests on multiple OS and Python versions
-        uses: 'platomo/GitHub-workflows/.github/workflows/reusable-python-tests.yml@main'
+        uses: platomo/GitHub-workflows/.github/workflows/reusable-python-tests.yml@main
         with:
           os: ${{ inputs.os }}
           py-version: ${{ inputs.py-version }}
