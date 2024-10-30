@@ -38,13 +38,13 @@ runs:
             pip install -r requirements-dev.txt
         fi
     - name: Lint
-      timeout-minutes: 60
+      shell: bash
       run: |
         flake8 .
     - name: Static type checking
-      timeout-minutes: 60
+      shell: bash
       run: |
         mypy .
     - name: Run pytest
-      timeout-minutes: 60
+      shell: bash
       run: pytest --cov=${{ inputs.test_path }} tests/
