@@ -9,8 +9,9 @@ inputs:
   py-version:
     description: "The python version to run the tests on"
     required: true
-
-
+  ffmpeg-required:
+    description: "Bool to check if FFMPEG needs to be installed"
+    required: true
 
 runs:
   using: composite
@@ -23,7 +24,7 @@ runs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ inputs.py-version }}
-        cache: 'pip'
+        cache: "pip"
     - name: Install Python dependencies
       shell: bash
       run: |
