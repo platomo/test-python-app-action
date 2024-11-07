@@ -6,9 +6,6 @@ inputs:
   test_path:
     description: "The test Path"
     required: true
-  os:
-    description: "The os to run the tests on"
-    required: true
   py-version:
     description: "The python version to run the tests on"
     required: true
