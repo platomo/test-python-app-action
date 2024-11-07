@@ -1,4 +1,3 @@
-
 # Test Python
 
 This GitHub Action runs tests for Python applications and provides a reusable testing environment.
@@ -9,12 +8,12 @@ This Action runs tests for Python projects that can be executed on a specified o
 
 ## Inputs
 
-| Name              | Description                                             | Required | Default      |
-|-------------------|---------------------------------------------------------|----------|--------------|
-| `test_path`       | The path to the files or directories to be tested       | Yes      | None         |
-| `os`              | The operating system on which to run the tests          | Yes      | None         |
-| `py-version`      | The Python version to use for the tests                 | Yes      | None         |
-| `ffmpeg-required` | Indicates whether FFMPEG should be installed            | Yes      | None         |
+| Name              | Description                                       | Required | Default |
+| ----------------- | ------------------------------------------------- | -------- | ------- |
+| `test_path`       | The path to the files or directories to be tested | Yes      | None    |
+| `os`              | The operating system on which to run the tests    | Yes      | None    |
+| `py-version`      | The Python version to use for the tests           | Yes      | None    |
+| `ffmpeg-required` | Indicates whether FFMPEG should be installed      | Yes      | None    |
 
 ## Usage
 
