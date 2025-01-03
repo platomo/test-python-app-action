@@ -13,7 +13,6 @@ inputs:
     description: "Determines if FFMPEG installation is needed."
     required: false
     default: false
-    type: boolean
   test-path:
     description: "Directory containing the test files."
     required: false
