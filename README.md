@@ -1,59 +1,58 @@
 # Test Python
 
-This GitHub Action runs tests for Python applications and provides a reusable testing environment.
-
 ## Description
 
-This Action runs tests for Python projects that can be executed on a specified operating system and Python version. It also supports optional installation of FFMPEG and setting up caching for dependencies.
+The `Test Python` GitHub Action is designed to automate testing workflows for Python
+applications. It defines the inputs, required steps, and configurations needed to
+run tests, perform linting, static type checking, and generate coverage reports.
+This action helps streamline development processes by ensuring code quality and
+robustness in Python projects.
 
 ## Inputs
 
-| Name              | Description                                       | Required | Default |
-| ----------------- | ------------------------------------------------- | -------- | ------- |
-| `test_path`       | The path to the files or directories to be tested | Yes      | None    |
-| `os`              | The operating system on which to run the tests    | Yes      | None    |
-| `py-version`      | The Python version to use for the tests           | Yes      | None    |
-| `ffmpeg-required` | Indicates whether FFMPEG should be installed      | Yes      | None    |
+| Name              | Description                                        | Required | Default |
+|-------------------|----------------------------------------------------|----------|---------|
+| `package-path`    | Path to the Python package for coverage reporting. | Yes      | None    |
+| `py-version`      | Python version to run the tests on.                | Yes      | None    |
+| `ffmpeg-required` | Indicates whether FFMPEG should be installed.      | No       | false   |
+| `test-path`       | Path to the test files.                            | No       | tests/  |
 
 ## Usage
 
-Create a workflow file (e.g., `.github/workflows/test.yml`) and use this Action as follows:
+To use this action, create a workflow file (e.g., `.github/workflows/test.yml`):
 
 ```yaml
-name: Test Python Application
+name: Test
 
 on:
-  push:
-    branches:
-      - main
+  # Run tests each time a PR is opened or changed.
+  # Allow other Workflows (e.g., build workflows) to call this workflow.
+  pull_request:
+  workflow_call:
 
 jobs:
   test:
-    runs-on: ${{ inputs.os }}
-
+    name: Run Python tests on multiple OS and Python versions.
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        py: [ "3.11", "3.12" ]
+      fail-fast: true
+    runs-on: ${{ matrix.os }}
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Test Python
-        uses: platomo/test-python-app-action@main
+      - name: Run Python Tests
+        uses: platomo/test-python-app-action@v1
+        timeout-minutes: 60
         with:
-          test_path: "src/"
-          os: "ubuntu-latest"
-          py-version: "3.9"
+          py-version: ${{ matrix.py }}
+          package-path: my-package-name
+          test-path: tests
           ffmpeg-required: true
 ```
 
-## Workflow Steps
-
-1. **Checkout Repository**: Checks out the code from the repository.
-2. **Install FFMPEG** (optional): Installs FFMPEG if `ffmpeg-required` is set to `true`.
-3. **Set up Python**: Configures the specified Python version and enables `pip` caching.
-4. **Install Python Dependencies**: Installs required dependencies based on `requirements.txt` and `requirements-dev.txt` files (if available).
-5. **Linting**: Checks the code format with `flake8`.
-6. **Static Type Checking**: Performs type checking with `mypy`.
-7. **Run Tests**: Executes tests using `pytest` and generates coverage for the specified `test_path`.
-
 ## Required Permissions
 
-This Action requires access to the source code to perform tests, linting, and type checking.
+This Action requires access to the source code to perform tests, linting, and type
+checking.

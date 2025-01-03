@@ -10,7 +10,7 @@ inputs:
     description: "Python version to run the tests on."
     required: true
   ffmpeg-required:
-    description: "Bool to check if FFMPEG needs to be installed."
+    description: "Indicates whether FFMPEG should be installed."
     required: false
     default: false
     type: boolean
