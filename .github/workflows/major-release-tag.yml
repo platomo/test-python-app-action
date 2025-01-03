@@ -19,5 +19,7 @@ jobs:
         run: |
           VERSION=${GITHUB_REF#refs/tags/}
           MAJOR=${VERSION%%.*}
+          git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
+          git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
           git tag -fa "${MAJOR}" -m 'Update major version tag'
           git push origin "${MAJOR}" --force
