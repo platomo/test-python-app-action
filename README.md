@@ -9,12 +9,12 @@ streamlines development by ensuring code quality and robustness in Python projec
 
 ## Inputs
 
-| Name              | Description                                                    | Required | Default |
-|-------------------|----------------------------------------------------------------|----------|---------|
-| `package-path`    | Specifies the Python package directory for coverage reporting. | Yes      | None    |
-| `py-version`      | Version of Python used to execute the tests.                   | Yes      | None    |
-| `ffmpeg-required` | Determines if FFMPEG installation is needed.                   | No       | false   |
-| `test-path`       | Directory containing the test files.                           | No       | tests/  |
+| Name              | Description                                                    | Required | Default  |
+|-------------------|----------------------------------------------------------------|:--------:|:--------:|
+| `package-path`    | Specifies the Python package directory for coverage reporting. |   Yes    |    -     |
+| `py-version`      | Version of Python used to execute the tests.                   |   Yes    |    -     |
+| `ffmpeg-required` | Determines if FFMPEG installation is needed.                   |    No    | `false`  |
+| `test-path`       | Directory containing the test files.                           |    No    | `tests/` |
 
 ## Usage
 
@@ -34,8 +34,8 @@ jobs:
     name: Execute tests across various operating systems and Python versions.
     strategy:
       matrix:
-        os: [ ubuntu-latest, windows-latest ]
-        py: [ "3.11", "3.12" ]
+        os: [ubuntu-latest, windows-latest]
+        py: ["3.11", "3.12"]
       fail-fast: true
     runs-on: ${{ matrix.os }}
     steps:
@@ -55,3 +55,10 @@ jobs:
 
 This action requires access to the source code to execute tests, linting, and type
 analysis.
+
+## Create a new release
+
+To create a new release of the action, use the GitHub release function and create a new
+tag according to semantic version requirements (vX.Y.Z).
+The GitHub workflow `major-release-tag.yml` will automatically move the major version
+tag to the new release.
