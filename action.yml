@@ -3,15 +3,21 @@ name: Testing Python Package
 description: "Runs linter, static type checking and tests for a Python package."
 
 inputs:
-  test_path:
-    description: "The test Path"
+  package-path:
+    description: "Path to determine test coverage."
     required: true
   py-version:
-    description: "The python version to run the tests on"
+    description: "Python version to run the tests on."
     required: true
   ffmpeg-required:
-    description: "Bool to check if FFMPEG needs to be installed"
-    required: true
+    description: "Bool to check if FFMPEG needs to be installed."
+    required: false
+    default: false
+    type: boolean
+  test-path:
+    description: "Path to the test files."
+    required: false
+    default: tests/
 
 runs:
   using: composite
@@ -45,4 +51,4 @@ runs:
         mypy .
     - name: Testing
       shell: bash
-      run: pytest --cov=${{ inputs.test_path }} tests/
+      run: pytest --benchmark-skip --cov=${{ inputs.package-path }} ${{ inputs.test-path }}
