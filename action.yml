@@ -4,18 +4,18 @@ description: "Runs linter, static type checking and tests for a Python package."
 
 inputs:
   package-path:
-    description: "Path to determine test coverage."
+    description: "Specifies the Python package directory for coverage reporting."
     required: true
   py-version:
-    description: "Python version to run the tests on."
+    description: "Version of Python used to execute the tests."
     required: true
   ffmpeg-required:
-    description: "Indicates whether FFMPEG should be installed."
+    description: "Determines if FFMPEG installation is needed."
     required: false
     default: false
     type: boolean
   test-path:
-    description: "Path to the test files."
+    description: "Directory containing the test files."
     required: false
     default: tests/
 

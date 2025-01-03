@@ -2,24 +2,23 @@
 
 ## Description
 
-The `Test Python` GitHub Action is designed to automate testing workflows for Python
-applications. It defines the inputs, required steps, and configurations needed to
-run tests, perform linting, static type checking, and generate coverage reports.
-This action helps streamline development processes by ensuring code quality and
-robustness in Python projects.
+The `Test Python` GitHub Action automates testing workflows for Python applications.
+It specifies the inputs, key steps, and configurations needed to execute tests,
+perform linting, check static types, and create coverage reports. This action
+streamlines development by ensuring code quality and robustness in Python projects.
 
 ## Inputs
 
-| Name              | Description                                        | Required | Default |
-|-------------------|----------------------------------------------------|----------|---------|
-| `package-path`    | Path to the Python package for coverage reporting. | Yes      | None    |
-| `py-version`      | Python version to run the tests on.                | Yes      | None    |
-| `ffmpeg-required` | Indicates whether FFMPEG should be installed.      | No       | false   |
-| `test-path`       | Path to the test files.                            | No       | tests/  |
+| Name              | Description                                                    | Required | Default |
+|-------------------|----------------------------------------------------------------|----------|---------|
+| `package-path`    | Specifies the Python package directory for coverage reporting. | Yes      | None    |
+| `py-version`      | Version of Python used to execute the tests.                   | Yes      | None    |
+| `ffmpeg-required` | Determines if FFMPEG installation is needed.                   | No       | false   |
+| `test-path`       | Directory containing the test files.                           | No       | tests/  |
 
 ## Usage
 
-To use this action, create a workflow file (e.g., `.github/workflows/test.yml`):
+Use this action by creating a workflow file, for example: `.github/workflows/test.yml`:
 
 ```yaml
 name: Test
@@ -32,7 +31,7 @@ on:
 
 jobs:
   test:
-    name: Run Python tests on multiple OS and Python versions.
+    name: Execute Python tests across various operating systems and Python versions.
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
@@ -54,5 +53,5 @@ jobs:
 
 ## Required Permissions
 
-This Action requires access to the source code to perform tests, linting, and type
-checking.
+This action requires access to the source code to execute tests, linting, and type
+analysis.
