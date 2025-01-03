@@ -50,4 +50,4 @@ runs:
         mypy .
     - name: Testing
       shell: bash
-      run: pytest --benchmark-skip --cov=${{ inputs.package-path }} ${{ inputs.test-path }}
+      run: pytest --cov=${{ inputs.package-path }} ${{ inputs.test-path }}
