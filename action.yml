@@ -1,6 +1,6 @@
-name: Test Python
+name: Testing Python Package
 
-description: "Runs tests from reusable Pyhton Tests"
+description: "Runs linter, static type checking and tests for a Python package."
 
 inputs:
   test_path:
@@ -35,7 +35,7 @@ runs:
         if [ -f "requirements-dev.txt" ]; then
             pip install -r requirements-dev.txt
         fi
-    - name: Lint
+    - name: Linting
       shell: bash
       run: |
         flake8 .
@@ -43,6 +43,6 @@ runs:
       shell: bash
       run: |
         mypy .
-    - name: Run pytest
+    - name: Testing
       shell: bash
       run: pytest --cov=${{ inputs.test_path }} tests/
