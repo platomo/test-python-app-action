@@ -31,7 +31,7 @@ on:
 
 jobs:
   test:
-    name: Execute Python tests across various operating systems and Python versions.
+    name: Execute tests across various operating systems and Python versions.
     strategy:
       matrix:
         os: [ ubuntu-latest, windows-latest ]
