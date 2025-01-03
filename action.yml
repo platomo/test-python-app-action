@@ -22,7 +22,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v4
     - name: Install ffmpeg
       if: inputs.ffmpeg-required
       uses: FedericoCarboni/setup-ffmpeg@v2
