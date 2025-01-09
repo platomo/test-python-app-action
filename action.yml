@@ -1,22 +1,26 @@
-name: Test Python
+name: Testing Python Package
 
-description: "Runs tests from reusable Pyhton Tests"
+description: "Runs linter, static type checking and tests for a Python package."
 
 inputs:
-  test_path:
-    description: "The test Path"
+  package-path:
+    description: "Specifies the Python package directory for coverage reporting."
     required: true
   py-version:
-    description: "The python version to run the tests on"
+    description: "Version of Python used to execute the tests."
     required: true
   ffmpeg-required:
-    description: "Bool to check if FFMPEG needs to be installed"
-    required: true
+    description: "Determines if FFMPEG installation is needed."
+    required: false
+    default: false
+  test-path:
+    description: "Directory containing the test files."
+    required: false
+    default: tests/
 
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v4
     - name: Install ffmpeg
       if: inputs.ffmpeg-required
       uses: FedericoCarboni/setup-ffmpeg@v2
@@ -35,7 +39,7 @@ runs:
         if [ -f "requirements-dev.txt" ]; then
             pip install -r requirements-dev.txt
         fi
-    - name: Lint
+    - name: Linting
       shell: bash
       run: |
         flake8 .
@@ -43,6 +47,6 @@ runs:
       shell: bash
       run: |
         mypy .
-    - name: Run pytest
+    - name: Testing
       shell: bash
-      run: pytest --cov=${{ inputs.test_path }} tests/
+      run: pytest --cov=${{ inputs.package-path }} ${{ inputs.test-path }}

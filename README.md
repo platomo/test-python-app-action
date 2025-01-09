@@ -1,59 +1,64 @@
 # Test Python
 
-This GitHub Action runs tests for Python applications and provides a reusable testing environment.
-
 ## Description
 
-This Action runs tests for Python projects that can be executed on a specified operating system and Python version. It also supports optional installation of FFMPEG and setting up caching for dependencies.
+The `Test Python` GitHub Action automates testing workflows for Python applications.
+It specifies the inputs, key steps, and configurations needed to execute tests,
+perform linting, check static types, and create coverage reports. This action
+streamlines development by ensuring code quality and robustness in Python projects.
 
 ## Inputs
 
-| Name              | Description                                       | Required | Default |
-| ----------------- | ------------------------------------------------- | -------- | ------- |
-| `test_path`       | The path to the files or directories to be tested | Yes      | None    |
-| `os`              | The operating system on which to run the tests    | Yes      | None    |
-| `py-version`      | The Python version to use for the tests           | Yes      | None    |
-| `ffmpeg-required` | Indicates whether FFMPEG should be installed      | Yes      | None    |
+| Name              | Description                                                    | Required | Default  |
+|-------------------|----------------------------------------------------------------|:--------:|:--------:|
+| `package-path`    | Specifies the Python package directory for coverage reporting. |   Yes    |    -     |
+| `py-version`      | Version of Python used to execute the tests.                   |   Yes    |    -     |
+| `ffmpeg-required` | Determines if FFMPEG installation is needed.                   |    No    | `false`  |
+| `test-path`       | Directory containing the test files.                           |    No    | `tests/` |
 
 ## Usage
 
-Create a workflow file (e.g., `.github/workflows/test.yml`) and use this Action as follows:
+Use this action by creating a workflow file, for example: `.github/workflows/test.yml`:
 
 ```yaml
-name: Test Python Application
+name: Test
 
 on:
-  push:
-    branches:
-      - main
+  # Run tests each time a PR is opened or changed.
+  # Allow other Workflows (e.g., build workflows) to call this workflow.
+  pull_request:
+  workflow_call:
 
 jobs:
   test:
-    runs-on: ${{ inputs.os }}
-
+    name: Execute tests across various operating systems and Python versions.
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        py: ["3.11", "3.12"]
+      fail-fast: true
+    runs-on: ${{ matrix.os }}
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Test Python
-        uses: platomo/test-python-app-action@main
+      - name: Run Python Tests
+        uses: platomo/test-python-app-action@v1
+        timeout-minutes: 60
         with:
-          test_path: "src/"
-          os: "ubuntu-latest"
-          py-version: "3.9"
+          py-version: ${{ matrix.py }}
+          package-path: my-package-name
+          test-path: tests
           ffmpeg-required: true
 ```
 
-## Workflow Steps
-
-1. **Checkout Repository**: Checks out the code from the repository.
-2. **Install FFMPEG** (optional): Installs FFMPEG if `ffmpeg-required` is set to `true`.
-3. **Set up Python**: Configures the specified Python version and enables `pip` caching.
-4. **Install Python Dependencies**: Installs required dependencies based on `requirements.txt` and `requirements-dev.txt` files (if available).
-5. **Linting**: Checks the code format with `flake8`.
-6. **Static Type Checking**: Performs type checking with `mypy`.
-7. **Run Tests**: Executes tests using `pytest` and generates coverage for the specified `test_path`.
-
 ## Required Permissions
 
-This Action requires access to the source code to perform tests, linting, and type checking.
+This action requires access to the source code to execute tests, linting, and type
+analysis.
+
+## Create a new release
+
+To create a new release of the action, use the GitHub release function and create a new
+tag according to semantic version requirements (vX.Y.Z).
+The GitHub workflow `major-release-tag.yml` will automatically move the major version
+tag to the new release.
