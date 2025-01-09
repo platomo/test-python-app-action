@@ -8,13 +8,15 @@ on:
   release:
     types: [created]
 
+permissions:
+  contents: write
+
 jobs:
   movetag:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-
       - name: Get major version num and update tag
         run: |
           VERSION=${GITHUB_REF#refs/tags/}
