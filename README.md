@@ -21,6 +21,7 @@ streamlines development by ensuring code quality and robustness in Python projec
 Use this action by creating a workflow file, for example: `.github/workflows/test.yml`:
 
 ```yaml
+---
 name: Test
 
 on:
@@ -28,6 +29,8 @@ on:
   # Allow other Workflows (e.g., build workflows) to call this workflow.
   pull_request:
   workflow_call:
+
+permissions: read-all
 
 jobs:
   test:
