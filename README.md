@@ -10,7 +10,7 @@ streamlines development by ensuring code quality and robustness in Python projec
 ## Inputs
 
 | Name              | Description                                                    | Required | Default  |
-|-------------------|----------------------------------------------------------------|:--------:|:--------:|
+| ----------------- | -------------------------------------------------------------- | :------: | :------: |
 | `package-path`    | Specifies the Python package directory for coverage reporting. |   Yes    |    -     |
 | `py-version`      | Version of Python used to execute the tests.                   |   Yes    |    -     |
 | `ffmpeg-required` | Determines if FFMPEG installation is needed.                   |    No    | `false`  |
