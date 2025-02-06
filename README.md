@@ -1,22 +1,22 @@
-# Test Python
+# 🛠️ GitHub Action: Test Python Package
 
-## Description
+## 📄 Description
 
 The `Test Python` GitHub Action automates testing workflows for Python applications.
 It specifies the inputs, key steps, and configurations needed to execute tests,
 perform linting, check static types, and create coverage reports. This action
 streamlines development by ensuring code quality and robustness in Python projects.
 
-## Inputs
+## ⚙️ Inputs
 
 | Name              | Description                                                    | Required | Default  |
-| ----------------- | -------------------------------------------------------------- | :------: | :------: |
+|-------------------|----------------------------------------------------------------|:--------:|:--------:|
 | `package-path`    | Specifies the Python package directory for coverage reporting. |   Yes    |    -     |
 | `py-version`      | Version of Python used to execute the tests.                   |   Yes    |    -     |
 | `ffmpeg-required` | Determines if FFMPEG installation is needed.                   |    No    | `false`  |
 | `test-path`       | Directory containing the test files.                           |    No    | `tests/` |
 
-## Usage
+## 📦 Usage Example
 
 Use this action by creating a workflow file, for example: `.github/workflows/test.yml`:
 
@@ -54,14 +54,13 @@ jobs:
           ffmpeg-required: true
 ```
 
-## Required Permissions
-
-This action requires access to the source code to execute tests, linting, and type
-analysis.
-
-## Create a new release
+## 🆕 Create a new release
 
 To create a new release of the action, use the GitHub release function and create a new
 tag according to semantic version requirements (vX.Y.Z).
 The GitHub workflow `major-release-tag.yml` will automatically move the major version
 tag to the new release.
+
+## ⚖️ License
+
+GNU GENERAL PUBLIC LICENSE Version 3
