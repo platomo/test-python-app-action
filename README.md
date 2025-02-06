@@ -2,7 +2,8 @@
 
 ## 📄 Description
 
-The `Test Python` GitHub Action automates testing workflows for Python applications.
+The `Test Python Package` GitHub Action automates testing workflows for Python
+applications.
 It specifies the inputs, key steps, and configurations needed to execute tests,
 perform linting, check static types, and create coverage reports. This action
 streamlines development by ensuring code quality and robustness in Python projects.
@@ -10,7 +11,7 @@ streamlines development by ensuring code quality and robustness in Python projec
 ## ⚙️ Inputs
 
 | Name              | Description                                                    | Required | Default  |
-|-------------------|----------------------------------------------------------------|:--------:|:--------:|
+| ----------------- | -------------------------------------------------------------- | :------: | :------: |
 | `package-path`    | Specifies the Python package directory for coverage reporting. |   Yes    |    -     |
 | `py-version`      | Version of Python used to execute the tests.                   |   Yes    |    -     |
 | `ffmpeg-required` | Determines if FFMPEG installation is needed.                   |    No    | `false`  |
