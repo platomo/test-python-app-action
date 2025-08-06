@@ -19,12 +19,13 @@ cd "$DIR" || exit
 WORKING_DIR=$(pwd)
 VENV="$WORKING_DIR"/venv
 PYTHON="$VENV"/bin/python
-PIP="$VENV"/bin/pip
 PRE_COMMIT="$VENV"/bin/pre-commit
 
 python3.11 -m venv "$VENV"
 
-$PYTHON -m pip install --upgrade pip
+# Install uv
+$PYTHON -m pip install uv
 
-$PIP install -r requirements-dev.txt
+# Use uv to install dependencies
+$PYTHON -m uv pip install -r requirements-dev.txt
 $PRE_COMMIT install --install-hooks
