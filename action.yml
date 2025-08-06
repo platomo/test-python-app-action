@@ -42,6 +42,9 @@ runs:
         if [ -f "requirements-dev.txt" ]; then
             uv sync
         fi
+    - name: debugging
+      shell: bash
+      run: ls -lha
     - name: Linting
       shell: bash
       run: |
