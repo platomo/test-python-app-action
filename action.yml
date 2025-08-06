@@ -51,7 +51,7 @@ runs:
     - name: Linting
       shell: bash
       run: |
-        .venv/bin/flake8 .
+        uv run flake8 .
     - name: Static type checking
       shell: bash
       run: |
