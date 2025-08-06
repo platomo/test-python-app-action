@@ -39,8 +39,8 @@ runs:
         if [ -f "requirements-dev.txt" ]; then
             uv pip install -r requirements-dev.txt
         fi
-        if [ -f "requirements-dev.txt" ]; then
-            uv sync
+        if [ -f "pyproject.toml" ]; then
+            uv pip install -r pyproject.toml --all-extras
         fi
     - name: debugging
       shell: bash
