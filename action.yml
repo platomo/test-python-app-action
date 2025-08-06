@@ -45,9 +45,6 @@ runs:
         if [ -f "pyproject.toml" ]; then
             uv pip install . --all-extras -r pyproject.toml
         fi
-    - name: debugging
-      shell: bash
-      run: ls -lha
     - name: Linting
       shell: bash
       run: |
