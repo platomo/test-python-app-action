@@ -17,6 +17,10 @@ inputs:
     description: "Directory containing the test files."
     required: false
     default: tests/
+  extras:
+    description: "Define extra dependencies to be installed"
+    required: false
+    default: "dev"
 
 runs:
   using: composite
@@ -43,7 +47,7 @@ runs:
             uv pip install -r requirements-dev.txt
         fi
         if [ -f "pyproject.toml" ]; then
-            uv pip install . --all-extras -r pyproject.toml
+            uv pip install .[${{ inputs.extras }}] -r pyproject.toml
         fi
     - name: debugging
       shell: bash
