@@ -53,7 +53,7 @@ runs:
     - name: Static type checking
       shell: bash
       run: |
-        mypy .
+        .venv/bin/mypy .
     - name: Testing
       shell: bash
       run: pytest --cov=${{ inputs.package-path }} ${{ inputs.test-path }}
