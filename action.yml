@@ -40,7 +40,7 @@ runs:
             uv pip install -r requirements-dev.txt
         fi
         if [ -f "requirements-dev.txt" ]; then
-            uv pip install -r pyproject.toml --all-extras
+            uv sync
         fi
     - name: Linting
       shell: bash
