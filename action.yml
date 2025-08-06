@@ -34,6 +34,7 @@ runs:
       shell: bash
       run: |
         uv venv
+        uv sync
         if [ -f "requirements.txt" ]; then
             uv pip install -r requirements.txt
         fi
