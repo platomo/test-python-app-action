@@ -56,4 +56,4 @@ runs:
         .venv/bin/mypy .
     - name: Testing
       shell: bash
-      run: pytest --cov=${{ inputs.package-path }} ${{ inputs.test-path }}
+      run: .venv/bin/pytest --cov=${{ inputs.package-path }} ${{ inputs.test-path }}
