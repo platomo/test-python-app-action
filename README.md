@@ -7,6 +7,7 @@ applications.
 It specifies the inputs, key steps, and configurations needed to execute tests,
 perform linting, check static types, and create coverage reports. This action
 streamlines development by ensuring code quality and robustness in Python projects.
+The action requires a pyproject.toml file to be present in the repository.
 
 ## ⚙️ Inputs
 
