@@ -17,7 +17,7 @@ The action requires a pyproject.toml file to be present in the repository.
 | `py-version`      | Version of Python used to execute the tests.                                |   Yes    |    -     |
 | `ffmpeg-required` | Determines if FFMPEG installation is needed.                                |    No    | `false`  |
 | `test-path`       | Directory containing the test files.                                        |    No    | `tests/` |
-| `uv-sync-args`    | Optional CLI flags passed to "uv sync" (e.g., `--extra opt1 --extra opt2`). |    No    | `""`    |
+| `uv-sync-args`    | Optional CLI flags passed to "uv sync" (e.g., `--extra opt1 --extra opt2`). |    No    |   `""`   |
 
 ## 📦 Usage Example
 
