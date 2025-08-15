@@ -17,6 +17,10 @@ inputs:
     description: "Directory containing the test files."
     required: false
     default: tests/
+  uv-sync-args:
+    description: "Optional CLI flags passed to 'uv sync' (e.g., '--extra opt1 --extra opt2')."
+    required: false
+    default: ""
 
 runs:
   using: composite
@@ -34,7 +38,7 @@ runs:
         enable-cache: true
     - name: Install the project
       shell: bash
-      run: uv sync --locked --all-extras --dev
+      run: uv sync --locked --dev ${{ inputs.uv-sync-args }}
     - name: Linting
       shell: bash
       run: uv run flake8 .
