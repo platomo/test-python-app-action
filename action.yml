@@ -21,6 +21,10 @@ inputs:
     description: "Optional CLI flags passed to 'uv sync' (e.g., '--extra opt1 --extra opt2')."
     required: false
     default: ""
+  playwright-required:
+    description: "Determines if playwright installation is needed."
+    required: false
+    default: false
 
 runs:
   using: composite
@@ -45,6 +49,10 @@ runs:
     - name: Static type checking
       shell: bash
       run: uv run mypy .
+    - name: Install playwright
+      if: inputs.playwright-required
+      shell: bash
+      run: playwright install
     - name: Testing
       shell: bash
       run: uv run pytest --cov=${{ inputs.package-path }} ${{ inputs.test-path }}
