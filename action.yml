@@ -49,10 +49,20 @@ runs:
     - name: Static type checking
       shell: bash
       run: uv run mypy .
-    - name: Install playwright
-      if: inputs.playwright-required
+    - name: Install Playwright browsers (Ubuntu)
+      if: runner.os == 'Linux' && inputs.playwright-required
       shell: bash
-      run: playwright install
+      run: |
+        uv pip install --upgrade pip
+        uv pip install playwright
+        uv run playwright install --with-deps
+    - name: Install Playwright browsers (Windows)
+      if: runner.os == 'Windows' && inputs.playwright-required
+      shell: powershell
+      run: |
+        uv pip install --upgrade pip
+        uv pip install playwright
+        uv run playwright install
     - name: Testing
       shell: bash
       run: uv run pytest --cov=${{ inputs.package-path }} ${{ inputs.test-path }}
