@@ -7,17 +7,21 @@ applications.
 It specifies the inputs, key steps, and configurations needed to execute tests,
 perform linting, check static types, and create coverage reports. This action
 streamlines development by ensuring code quality and robustness in Python projects.
+The action requires a pyproject.toml file to be present in the repository.
 
 ## ⚙️ Inputs
 
-| Name              | Description                                                    | Required | Default  |
-| ----------------- | -------------------------------------------------------------- | :------: | :------: |
-| `package-path`    | Specifies the Python package directory for coverage reporting. |   Yes    |    -     |
-| `py-version`      | Version of Python used to execute the tests.                   |   Yes    |    -     |
-| `ffmpeg-required` | Determines if FFMPEG installation is needed.                   |    No    | `false`  |
-| `test-path`       | Directory containing the test files.                           |    No    | `tests/` |
+| Name              | Description                                                                 | Required | Default  |
+| ----------------- | --------------------------------------------------------------------------- | :------: | :------: |
+| `package-path`    | Specifies the Python package directory for coverage reporting.              |   Yes    |    -     |
+| `py-version`      | Version of Python used to execute the tests.                                |   Yes    |    -     |
+| `ffmpeg-required` | Determines if FFMPEG installation is needed.                                |    No    | `false`  |
+| `test-path`       | Directory containing the test files.                                        |    No    | `tests/` |
+| `uv-sync-args`    | Optional CLI flags passed to "uv sync" (e.g., `--extra opt1 --extra opt2`). |    No    |   `""`   |
 
 ## 📦 Usage Example
+
+Note: By default, this action no longer installs all optional extras. To install specific optional dependencies, pass them explicitly via `uv-sync-args` (e.g., `--extra optional_deps_1 --extra optional_deps_2`).
 
 Use this action by creating a workflow file, for example: `.github/workflows/test.yml`:
 
@@ -46,13 +50,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Run Python Tests
-        uses: platomo/test-python-app-action@v1
+        uses: platomo/test-python-app-action@v3
         timeout-minutes: 60
         with:
           py-version: ${{ matrix.py }}
           package-path: my-package-name
           test-path: tests
           ffmpeg-required: true
+          uv-sync-args: "--extra opt1 --extra opt2"
 ```
 
 ## 🆕 Create a new release
