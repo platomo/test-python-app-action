@@ -17,6 +17,14 @@ inputs:
     description: "Directory containing the test files."
     required: false
     default: tests/
+  uv-sync-args:
+    description: "Optional CLI flags passed to 'uv sync' (e.g., '--extra opt1 --extra opt2')."
+    required: false
+    default: ""
+  playwright-required:
+    description: "Determines if playwright installation is needed."
+    required: false
+    default: false
 
 runs:
   using: composite
@@ -28,25 +36,33 @@ runs:
       uses: actions/setup-python@v5
       with:
         python-version: ${{ inputs.py-version }}
-        cache: "pip"
-    - name: Install Python dependencies
+    - name: Install uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        enable-cache: true
+    - name: Install the project
       shell: bash
-      run: |
-        python -m pip install --upgrade pip
-        if [ -f "requirements.txt" ]; then
-            pip install -r requirements.txt
-        fi
-        if [ -f "requirements-dev.txt" ]; then
-            pip install -r requirements-dev.txt
-        fi
+      run: uv sync --locked --dev ${{ inputs.uv-sync-args }}
     - name: Linting
       shell: bash
-      run: |
-        flake8 .
+      run: uv run flake8 .
     - name: Static type checking
       shell: bash
+      run: uv run mypy .
+    - name: Install Playwright browsers (Ubuntu)
+      if: runner.os == 'Linux' && inputs.playwright-required
+      shell: bash
       run: |
-        mypy .
+        uv pip install --upgrade pip
+        uv pip install playwright
+        uv run playwright install --with-deps
+    - name: Install Playwright browsers (Windows)
+      if: runner.os == 'Windows' && inputs.playwright-required
+      shell: powershell
+      run: |
+        uv pip install --upgrade pip
+        uv pip install playwright
+        uv run playwright install
     - name: Testing
       shell: bash
-      run: pytest --cov=${{ inputs.package-path }} ${{ inputs.test-path }}
+      run: uv run pytest --cov=${{ inputs.package-path }} ${{ inputs.test-path }}
