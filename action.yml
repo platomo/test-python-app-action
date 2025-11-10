@@ -33,7 +33,7 @@ runs:
       if: inputs.ffmpeg-required
       uses: FedericoCarboni/setup-ffmpeg@v2
     - name: Set up Python ${{ inputs.py-version }}
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ inputs.py-version }}
     - name: Install uv
